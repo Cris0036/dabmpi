@@ -135,10 +135,10 @@ class Matrix(object):
         return self.cols
 
     def setitem(self, col, row, v):
-        self.matrix[col - 1][row - 1] = v
+        self.matrix[row - 1][col - 1] = v
 
     def getitem(self, col, row):
-        return self.matrix[col - 1][row - 1]
+        return self.matrix[row - 1][col - 1]
 
     def __repr__(self):
         out_str = ""
