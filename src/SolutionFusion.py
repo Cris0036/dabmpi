@@ -81,7 +81,7 @@ class SolutionFusion (SolutionBase):
         values = self.getParametersValues()
         val = 0.0
         for v in range(-100, 100):
-            for i in len(values):
+            for i in range(len(values)):
                 if (i == 0):
                     continue
                 val += pow(v, i - 1) * values[i] * i
