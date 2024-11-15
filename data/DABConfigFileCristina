@@ -12,7 +12,7 @@ probEmployedChange: 4
 
 [Algorithm]
 #Execution time
-time: 50000
+time: 50
 #Size of the queue that stores the solutions that haven't been set yet
 pendingSize: 50
 objective: min
