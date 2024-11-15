@@ -28,17 +28,49 @@ HISTORY
     Version 1.0 (15-01-2014):   Fist stable version.
 """
 
-import random
+#import random
+
+#class ProblemCristina(object):
+ #   def __init__(self):
+  #      return
+
+   # def solve(self, solution):
+    #    val = random.randint(0, 1000000)
+     #   solution.setValue(val)
+      #  print("ProblemCristina. Solution found with value: " + str(val))
+       # return val
+
+    #def extractSolution(self):
+     #   raise NotImplementedError("Extract solution abstract problem")
+
+    #def finish(self):
+     #   raise NotImplementedError("Finish abstract problem")
+
+import numpy as np
 
 class ProblemCristina(object):
-    def __init__(self):
-        return
+    def __init__(self, n_dimensions=2):
+        # Numero dimensiones para la funcion de Schwefel 2.22
+        self.n_dimensions = n_dimensions
 
     def solve(self, solution):
-        val = random.randint(0, 1000000)
+        params = solution.getParametersValues()
+
+        
+        # Check number parameters == n_dimensions
+        if len(params) != self.n_dimensions:
+            raise ValueError(f"Expected {self.n_dimensions} parameters, but got {len(params)}")
+
+        # Funcion de Schwefel 2.22
+        # val = sum([abs(x) for x in params]) + np.prod([abs(x) for x in params])
+        
+        # Otra funcion
+        
+        val = abs(params[0]) + abs(params[1]) + 14
+        
         solution.setValue(val)
-#        if val==0:
-#            print("ProblemCristina. Solution found with value: " + str(val))
+        print("ProblemCristina. Solution found with Schwefel 2.22 value: " + str(val), "parameters = ", params)
+        
         return val
 
     def extractSolution(self):
