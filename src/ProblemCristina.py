@@ -49,7 +49,7 @@ HISTORY
 import numpy as np
 
 class ProblemCristina(object):
-    def __init__(self, n_dimensions=2):
+    def __init__(self, n_dimensions=1):
         # Numero dimensiones para la funcion de Schwefel 2.22
         self.n_dimensions = n_dimensions
 
@@ -66,7 +66,11 @@ class ProblemCristina(object):
         
         # Otra funcion
         
-        val = abs(params[0]) + abs(params[1]) + 14
+        # val = abs(params[0]) + abs(params[1]) + 14
+        
+        
+        # PRUEBA GRADO 4
+        val = params[0]**4 - 3*params[0]**3 + 2*params[0]**2 + 5
         
         solution.setValue(val)
         print("ProblemCristina. Solution found with Schwefel 2.22 value: " + str(val), "parameters = ", params)
