@@ -4,19 +4,9 @@
         <index>0</index>
         <name>x0</name>
         <value>0</value>
-        <type>int</type>
+        <type>float</type>
         <gap>1</gap>
         <min_value>-10</min_value>
         <max_value>10</max_value>
     </param>
-    <param>
-        <index>1</index>
-        <name>x1</name>
-        <value>0</value>
-        <type>int</type>
-        <gap>1</gap>
-        <min_value>-10</min_value>
-        <max_value>10</max_value>
-    </param>
-    <!-- Añade más parámetros según el número de dimensiones -->
 </CristinaParams>
