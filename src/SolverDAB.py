@@ -296,7 +296,7 @@ class Employed (BeeBase):
                         else:
                             if minVal > maxVal:
                                 minVal, maxVal = maxVal, minVal
-                            newVal = random.randint(int(minVal), int(maxVal))
+                            newVal = random.uniform((minVal), (maxVal))
 
                     currentVal = parameters[i].get_value()
                     if newVal != currentVal:
@@ -370,7 +370,7 @@ class Onlooker (BeeBase):
                     isNew = True
                     ptype = p.get_type()
                     newVal = None
-                    if ptype in ['double', 'float']:
+                    """if ptype in ['double', 'float']:
                         minVal = p.get_min_value()
                         maxVal = p.get_max_value()
                         currentVal = p.get_value()
@@ -387,15 +387,18 @@ class Onlooker (BeeBase):
                                 newVal = random.uniform(minVal, maxVal)
                             else:
                                 newVal = self.randrange_float(minVal, maxVal, p.get_gap())
-                    elif ptype == "bool":
+                    """
+                    # Tener en cuenta que estoy cambiando el elif siguiente por if
+                     
+                    if ptype == "bool":
                         val = random.randint(0, 1)
                         newVal = val == 0
                     else:
                         minVal = p.get_min_value()
                         maxVal = p.get_max_value()
                         currentVal = p.get_value()
-                        minNewVal = int(currentVal - 2 * abs(p.get_gap()))
-                        maxNewVal = int(currentVal + 2 * abs(p.get_gap()))
+                        minNewVal = (currentVal - 2 * abs(p.get_gap()))
+                        maxNewVal = (currentVal + 2 * abs(p.get_gap()))
                         if minNewVal != currentVal:
                             minVal = max(minVal, minNewVal)
                         if maxNewVal != currentVal:
@@ -404,9 +407,9 @@ class Onlooker (BeeBase):
                             minVal = maxVal - 1
                         if minVal > maxVal:
                             minVal, maxVal = maxVal, minVal
-                        newVal = random.randint(int(minVal), int(maxVal))
+                        newVal = random.uniform((minVal), (maxVal))
                         while newVal == currentVal:
-                            newVal = random.randint(int(minVal), int(maxVal))
+                            newVal = random.uniform((minVal),(maxVal))
                     p.set_value(newVal)
                     #Here: go through the parameters of the solution and change those
                     #parameters considering the min and max values of each parameter,
