@@ -370,7 +370,7 @@ class Onlooker (BeeBase):
                     isNew = True
                     ptype = p.get_type()
                     newVal = None
-                    """if ptype in ['double', 'float']:
+                    if ptype in ['double', 'float']:
                         minVal = p.get_min_value()
                         maxVal = p.get_max_value()
                         currentVal = p.get_value()
@@ -387,8 +387,7 @@ class Onlooker (BeeBase):
                                 newVal = random.uniform(minVal, maxVal)
                             else:
                                 newVal = self.randrange_float(minVal, maxVal, p.get_gap())
-                    """
-                    # Tener en cuenta que estoy cambiando el elif siguiente por if
+                    
                      
                     if ptype == "bool":
                         val = random.randint(0, 1)
