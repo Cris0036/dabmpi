@@ -92,7 +92,7 @@ class Parameter():
         try:
             if self.__type == "string":
                 self.__min_value = ""
-            elif self.__type == "double":
+            elif self.__type == "double" or self.__type == "float":
                 self.__min_value = float(min_value)
             elif self.__type == "bool":
                 self.__min_value = False
@@ -109,7 +109,7 @@ class Parameter():
         try:
             if self.__type == "string":
                 self.__max_value = ""
-            elif self.__type == "double":
+            elif self.__type == "double" or self.__type == "float":
                 self.__max_value = float(max_value)
             elif self.__type == "bool":
                 self.__max_value = True
