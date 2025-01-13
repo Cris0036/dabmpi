@@ -97,6 +97,10 @@ class SolutionsQueue (object):
             util.logger.warning("QUEUE. Solution is None. " +
                                 str(self.__filename))
             return
+        if solution is math.isnan(solution):
+            util.logger.warning("QUEUE. Solution in NaN. " + str(self.__filename))
+            return
+            
         parameters = solution.getParameters()
         sol = ""
         try:
