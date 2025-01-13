@@ -97,7 +97,7 @@ class SolutionsQueue (object):
             util.logger.warning("QUEUE. Solution is None. " +
                                 str(self.__filename))
             return
-        if solution is math.isnan(solution):
+        if solution is u.is_nan(solution):
             util.logger.warning("QUEUE. Solution in NaN. " + str(self.__filename))
             return
             
