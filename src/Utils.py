@@ -29,7 +29,6 @@ HISTORY
     Version 1.1 (09-01-2015):   Use Numpy for the Matrix.
 """
 import numpy as np
-import math
 """
 Global constants and structures
 """
@@ -147,4 +146,4 @@ class Matrix(object):
         return out_str
     
     def is_nan(value):
-        return math.isnan(value)
+        return np.isnan(value)
