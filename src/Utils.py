@@ -82,6 +82,10 @@ iterations = 10
 #very large double
 infinity = 9.999999e+37
 
+def is_nan(value):
+    return np.isnan(value)
+
+
 """
 Given a file, it reads the last lines of the file.
 Argument:
@@ -144,6 +148,3 @@ class Matrix(object):
         for i in range(self.rows):
             out_str += 'Row %s = %s\n' % (i + 1, self.matrix[i])
         return out_str
-    
-    def is_nan(value):
-        return np.isnan(value)
