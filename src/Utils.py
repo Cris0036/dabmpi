@@ -82,8 +82,6 @@ iterations = 10
 #very large double
 infinity = 9.999999e+37
 
-def is_nan(value):
-    return np.isnan(value)
 
 
 """
