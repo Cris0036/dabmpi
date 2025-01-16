@@ -91,9 +91,10 @@ class Worker ():
                                         ") Objective set to MINIMIZE")
             elapsed_time = time() - start_time
             solutions_evaluated = 0
-            #Send the finish message 10 minutes before the end time to allow
-            #the jobs that are still running to finish on time
-            while (elapsed_time + (60 * 5)) < self.__runtime:
+            # #Send the finish message 10 minutes before the end time to allow
+            # #the jobs that are still running to finish on time
+            # while (elapsed_time + (60 * 5)) < self.__runtime:
+            while elapsed_time < self.__runtime:
                 #solution = SolutionFusion()
                 #Send a request for data
                 status = MPI.Status()
