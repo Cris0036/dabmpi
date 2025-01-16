@@ -25,7 +25,7 @@ jobs:
         pip install mpi4py
         pip install pylint
         pip install sympy
-        pip install scipy
+        pip install mpmath
     - name: Analysing the code with pylint
       run: |
         pylint $(git ls-files ':(glob)src/*.py') --fail-under=5.0 --disable=C0411,C0116,C0114,C0413
