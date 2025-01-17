@@ -5,8 +5,8 @@
         <name>x0</name>
         <value>1.5</value>
         <type>double</type>
-        <gap>0.001</gap>
-        <min_value>0</min_value>
-        <max_value>10</max_value>
+        <gap>0.0000001</gap>
+        <min_value>1</min_value>
+        <max_value>4</max_value>
     </param>
 </CristinaParams>
