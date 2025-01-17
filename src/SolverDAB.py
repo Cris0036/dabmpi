@@ -383,7 +383,7 @@ class Onlooker (BeeBase):
                         if minVal == maxVal:
                             newVal = minVal
                         else:
-                            if not p.get_gap():
+                            if p.get_gap() == 0.0:
                                 newVal = random.uniform(minVal, maxVal)
                             else:
                                 newVal = self.randrange_float(minVal, maxVal, p.get_gap())
