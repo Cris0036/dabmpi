@@ -930,7 +930,7 @@ class SolverDAB (SolverBase):
 
         x = []
         y = []
-        aux_list = self.__finisedSolutions.getAllSolutions()
+        aux_list = self.__finishedSolutions.getAllSolutions()
         for i in range(len(aux_list)):
             aux_list2 = aux_list[i][0].split(',')
             aux_list2 = [float(par.split(':')[1]) for par in aux_list2]
