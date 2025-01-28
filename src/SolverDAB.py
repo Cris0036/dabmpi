@@ -914,7 +914,7 @@ class SolverDAB (SolverBase):
 
 
 
-    def create_and_save_plot(self):
+    def create_save_plot(self):
         current_time = datetime.now().strftime("%Y%m%d_%H%M")
         directory_name = f"graficas/{current_time}"
     
