@@ -373,6 +373,6 @@ class SolutionsQueue (object):
     Returns a list of the values of all solutions
     """
     def getAllSolutionsValue(self):
-        result = [double(self.__queue[i][1]) for i in range(self.qSize())]
+        result = [float(self.__queue[i][1]) for i in range(self.qSize())]
         return result
     
