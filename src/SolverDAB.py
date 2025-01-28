@@ -910,12 +910,12 @@ class SolverDAB (SolverBase):
                                    str(sys.exc_info()[2].tb_lineno))
         else:
             self.runDistributed()
-        self.create_save_plots()
+        self.create_save_plot()
 
 
 
     def create_save_plot(self):
-        current_time = datetime.now().strftime("%Y%m%d_%H%M")
+        current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M")
         directory_name = f"graficas/{current_time}"
     
         y = self.__finishedSolutions.getAllSolutionsValue()
