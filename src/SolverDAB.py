@@ -529,6 +529,7 @@ class SolverDAB (SolverBase):
                 if self.__topSolutions.qSize() != 0:
                     self.__bestSolution, value, origin = self.__topSolutions.GetSolutionTuple(False)
                     self.__bestSolution.setValue(value)
+                    self.__all_best_global_solutions.append((0, solutionValue))
             except Exception as e:
                 u.logger.warning("SolverDAB. " + str(e) + ". line " + str(sys.exc_info()[2].tb_lineno))
 
@@ -803,7 +804,9 @@ class SolverDAB (SolverBase):
 
                     if ((u.objective == u.objectiveType.MAXIMIZE and float(solVal[0]) > float(self.__bestSolution.getValue())) or
                         (u.objective == u.objectiveType.MINIMIZE and float(solVal[0]) < float(self.__bestSolution.getValue()))):
-
+                         elapsedTime = time.time() - u.starttime
+                         self.__all_best_global_solutions.append((elapsedTime, solutionValue))
+                        
                         isNewBest = True
                         u.logger.log(u.extraLog, "New best solution found. Value " + str(solVal[0]) +
                                        " -- old " + str(self.__bestSolution.getValue()) + ". Bee " + str(beeIdx[0]))
@@ -974,17 +977,20 @@ class SolverDAB (SolverBase):
                 self.__totalSumGoodSolutions = self.__topSolutions.GetTotalSolutionsValues()
                 if ((u.objective == u.objectiveType.MAXIMIZE and float(solutionValue) > float(self.__bestSolution.getValue())) or
                     (u.objective == u.objectiveType.MINIMIZE and float(solutionValue) < float(self.__bestSolution.getValue()))):
-
+                    
+                    elapsedTime = time.time() - u.starttime
+                    self.__all_best_global_solutions.append((elapsedTime, solutionValue))
+                    
                     u.logger.log(u.extraLog, "New best solution found. Value " + str(newSolution) +
                                    " -- old " + str(self.__bestSolution.getValue()) + ". Bee " + str(beeIdx))
 
                     self.__bestSolution = newSolution
-
+                    elapsed_time = time.time() - u.starttime
+                    self.best_global_solutions.append((elapsed_time, solutionValue))
+                    
                     if ((u.objective == u.objectiveType.MAXIMIZE and float(solutionValue) > float(self.__bestGlobalSolution.getValue())) or
                         (u.objective == u.objectiveType.MINIMIZE and float(solutionValue) < float(self.__bestGlobalSolution.getValue()))):
                         self.__bestGlobalSolution = self.__bestSolution
-                        elapsed_time = time.time() - u.starttime
-                        self.best_global_solutions.append((elapsed_time, solutionValue))
                     
                     buff = self.__bestSolution.getParametersValues()
                     solValue[0] = solutionValue
@@ -1020,7 +1026,8 @@ class SolverDAB (SolverBase):
                         float(solutionValue) > float(self.__bestSolution.getValue())) or
                         (u.objective == u.objectiveType.MINIMIZE and
                         float(solutionValue) < float(self.__bestSolution.getValue()))):
-
+                        elapsedTime = time.time() - u.starttime
+                        self.__all_best_global_solutions.append((elapsedTime, solutionValue))
 
                         u.logger.log(u.extraLog, "New best solution found. Value " + str(newSolution) +
                                        " -- old " + str(self.__bestSolution.getValue()) + ". Bee " + str(beeIdx))
