@@ -369,3 +369,10 @@ class SolutionsQueue (object):
         util.logger.info("Queue. Returning None. " + str(value) +
                          "/" + str(total_val) + "/" + str(temp_sum))
         return None, None, None
+"""
+Returns a list of the values of all solutions
+"""
+def getAllSolutionsValue(self):
+    result = [double(self.__queue[i][1]) for i in range(self.qSize())]
+    return result
+    
