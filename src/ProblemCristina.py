@@ -117,7 +117,7 @@ class ProblemCristina(object):
             # Evaluamos el integrando con los valores de r y q
             integrando_mp = lambdify(self.theta, self.integrando.subs({self.r: r_val, self.q: q_val}), modules={'mpmath': mpmath})
             # Calculamos la integral
-            integral = mpmath.quad(integrando_mp, [0, 2*mpmath.pi], points=singularidades_reales)
+            integral = mpmath.quad(integrando_mp, [0, 2*mpmath.pi])
             val += integral
             
         val = val / self.aux
