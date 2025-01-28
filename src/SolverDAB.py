@@ -942,11 +942,28 @@ class SolverDAB (SolverBase):
         plt.xlabel("Primer parametro")
         plt.ylabel("Segundo parametro")
     
+        file_path = f"{directory_name}/dispersion.png"
+        plt.savefig(file_path)
+        plt.close()
+        
+        
+        x = []
+        y = []
+        for elapsedTime, solutionValue in  self.__all_best_global_solutions:
+        x.append(elapsedTime)
+        y.append(solutionValue)
+
+       
+        plt.plot(x, y, marker='o', color='blue')  # Línea con puntos marcados
+        plt.title("Evolución de la Mejor Solución")
+        plt.xlabel("Tiempo (segundos)")
+        plt.ylabel("Valor funcion objetivo")
+    
         file_path = f"{directory_name}/grafica_fo.png"
         plt.savefig(file_path)
         plt.close()
-    
-    
+        
+        
 
     def runDistributed(self):
         if (self.__problem_type == u.problem_type.FUSION):
