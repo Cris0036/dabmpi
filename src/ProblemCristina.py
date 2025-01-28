@@ -116,21 +116,10 @@ class ProblemCristina(object):
             
             # Evaluamos el integrando con los valores de r y q
             integrando_mp = lambdify(self.theta, self.integrando.subs({self.r: r_val, self.q: q_val}), modules={'mpmath': mpmath})
-            
-            print("entramos en singularidades para", r_val, q_val)
-            # Encontrar las singularidades en el intervalo [0,2pi]
-            singularidades = singularities(self.integrando.subs({self.r: r_val, self.q: q_val}), self.theta, domain=intervalo)
-            print("todo ok para", r_val, q_val)
-            singularidades_reales = [float(re(s.evalf())) for s in singularidades if s.is_real]
-            if singularidades != S.EmptySet:
-                print(singularidades)
-                print("Singularidades reales encontradas en theta:", singularidades_reales, r_val, q_val)
+            # Calculamos la integral
             integral = mpmath.quad(integrando_mp, [0, 2*mpmath.pi], points=singularidades_reales)
             val += integral
-            if singularidades != S.EmptySet:
-                print("MANEJADO BIEN", integral)
-
-            print(integral)
+            
         val = val / self.aux
         solution.setValue(val)
         return val
