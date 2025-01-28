@@ -920,7 +920,7 @@ class SolverDAB (SolverBase):
     
         y = self.__finishedSolutions.getAllSolutionsValue()
         # Para el eje x dividimos el intervalo de tiempo de ejecución en partes iguales
-        x = u.np.linspace(0, self.__runtime, numself.__finishedSolutions.qSize())
+        x = u.np.linspace(0, self.__runtime, num=self.__finishedSolutions.qSize())
     
         plt.plot(x, y, marker='o')
         plt.title("Evolucion de los resultados")
