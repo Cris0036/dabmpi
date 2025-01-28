@@ -934,8 +934,8 @@ class SolverDAB (SolverBase):
         for i in range(len(aux_list)):
             aux_list2 = aux_list[i][0].split(',')
             aux_list2 = [float(par.split(':')[1]) for par in aux_list2]
-            x.append(aux_lista2[0])
-            y.append(aux_lista2[1])
+            x.append(aux_list2[0])
+            y.append(aux_list2[1])
 
         plt.scatter(x, y, marker='o', color='black')
         plt.title("Evolucion de los resultados")
