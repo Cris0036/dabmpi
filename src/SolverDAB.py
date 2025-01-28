@@ -910,22 +910,33 @@ class SolverDAB (SolverBase):
                                    str(sys.exc_info()[2].tb_lineno))
         else:
             self.runDistributed()
-        self.create_save_plot()
+        self.create_save_plots()
 
 
 
-    def create_save_plot(self):
+    def create_save_plots(self):
         current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M")
         directory_name = f"graficas/{current_time}"
-    
-        y = self.__finishedSolutions.getAllSolutionsValue()
-        # Para el eje x dividimos el intervalo de tiempo de ejecución en partes iguales
-        x = u.np.linspace(0, self.__runtime, num=self.__finishedSolutions.qSize())
-    
-        plt.plot(x, y, marker='o')
+
+        try:
+            os.makedirs(directory_name, exist_ok=True)
+        except:
+            print(f"Error al crear la carpeta {directory_name}: {e}")
+            return
+
+        x = []
+        y = []
+        aux_list = self.__finisedSolutions.getAllSolutions()
+        for i in range(len(aux_list)):
+            aux_list2 = aux_list[i][0].split(',')
+            aux_list2 = [float(par.split(':')[1]) for par in aux_list2]
+            x.append(aux_lista2[0])
+            y.append(aux_lista2[1])
+
+        plt.scatter(x, y, marker='o', color='black')
         plt.title("Evolucion de los resultados")
-        plt.xlabel("Tiempo de ejecucion")
-        plt.ylabel("Valor de la funcion objetivo")
+        plt.xlabel("Primer parametro")
+        plt.ylabel("Segundo parametro")
     
         file_path = f"{directory_name}/grafica_fo.png"
         plt.savefig(file_path)
