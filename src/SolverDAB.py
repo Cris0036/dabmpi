@@ -19,11 +19,13 @@
 
 from mpi4py import MPI
 import sys
+import os
 import random
 import shutil
 import time
 import datetime
 from array import array
+import matplotlib.pyplot as plt
 from SolverBase import SolverBase
 from ProblemCristina import ProblemCristina
 from ProblemFusion import ProblemFusion
@@ -908,6 +910,28 @@ class SolverDAB (SolverBase):
                                    str(sys.exc_info()[2].tb_lineno))
         else:
             self.runDistributed()
+        self.create_save_plots()
+
+
+
+    def create_and_save_plot(self):
+        current_time = datetime.now().strftime("%Y%m%d_%H%M")
+        directory_name = f"graficas/{current_time}"
+    
+        y = self.__finishedSolutions.getAllSolutionsValue()
+        # Para el eje x dividimos el intervalo de tiempo de ejecución en partes iguales
+        x = u.np.linspace(0, self.__runtime, numself.__finishedSolutions.qSize())
+    
+        plt.plot(x, y, marker='o')
+        plt.title("Evolucion de los resultados")
+        plt.xlabel("Tiempo de ejecucion")
+        plt.ylabel("Valor de la funcion objetivo")
+    
+        file_path = f"{directory_name}/grafica_fo.png"
+        plt.savefig(file_path)
+        plt.close()
+    
+    
 
     def runDistributed(self):
         if (self.__problem_type == u.problem_type.FUSION):
