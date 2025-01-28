@@ -804,8 +804,8 @@ class SolverDAB (SolverBase):
 
                     if ((u.objective == u.objectiveType.MAXIMIZE and float(solVal[0]) > float(self.__bestSolution.getValue())) or
                         (u.objective == u.objectiveType.MINIMIZE and float(solVal[0]) < float(self.__bestSolution.getValue()))):
-                         elapsedTime = time.time() - u.starttime
-                         self.__all_best_global_solutions.append((elapsedTime, solutionValue))
+                        elapsedTime = time.time() - u.starttime
+                        self.__all_best_global_solutions.append((elapsedTime, solutionValue))
                         
                         isNewBest = True
                         u.logger.log(u.extraLog, "New best solution found. Value " + str(solVal[0]) +
@@ -950,8 +950,8 @@ class SolverDAB (SolverBase):
         x = []
         y = []
         for elapsedTime, solutionValue in  self.__all_best_global_solutions:
-        x.append(elapsedTime)
-        y.append(solutionValue)
+            x.append(elapsedTime)
+            y.append(solutionValue)
 
        
         plt.plot(x, y, marker='o', color='blue')  # Línea con puntos marcados
