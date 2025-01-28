@@ -529,7 +529,7 @@ class SolverDAB (SolverBase):
                 if self.__topSolutions.qSize() != 0:
                     self.__bestSolution, value, origin = self.__topSolutions.GetSolutionTuple(False)
                     self.__bestSolution.setValue(value)
-                    self.__all_best_global_solutions.append((0, solutionValue))
+                    self.__all_best_global_solutions.append((0, value))
             except Exception as e:
                 u.logger.warning("SolverDAB. " + str(e) + ". line " + str(sys.exc_info()[2].tb_lineno))
 
@@ -805,7 +805,7 @@ class SolverDAB (SolverBase):
                     if ((u.objective == u.objectiveType.MAXIMIZE and float(solVal[0]) > float(self.__bestSolution.getValue())) or
                         (u.objective == u.objectiveType.MINIMIZE and float(solVal[0]) < float(self.__bestSolution.getValue()))):
                         elapsedTime = time.time() - u.starttime
-                        self.__all_best_global_solutions.append((elapsedTime, solutionValue))
+                        self.__all_best_global_solutions.append((elapsedTime, solVal[0]))
                         
                         isNewBest = True
                         u.logger.log(u.extraLog, "New best solution found. Value " + str(solVal[0]) +
