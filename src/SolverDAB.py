@@ -456,6 +456,7 @@ class SolverDAB (SolverBase):
             SolverBase.__init__(self, problem_type, infile, configfile)
             self.__bestSolution = None
             self.__bestGlobalSolution = None
+            self.__all_best_global_solutions = []
 
             if self.__problem_type == u.problem_type.FUSION:
                 self.__problem = ProblemFusion()
@@ -982,7 +983,9 @@ class SolverDAB (SolverBase):
                     if ((u.objective == u.objectiveType.MAXIMIZE and float(solutionValue) > float(self.__bestGlobalSolution.getValue())) or
                         (u.objective == u.objectiveType.MINIMIZE and float(solutionValue) < float(self.__bestGlobalSolution.getValue()))):
                         self.__bestGlobalSolution = self.__bestSolution
-
+                        elapsed_time = time.time() - u.starttime
+                        self.best_global_solutions.append((elapsed_time, solutionValue))
+                    
                     buff = self.__bestSolution.getParametersValues()
                     solValue[0] = solutionValue
 
