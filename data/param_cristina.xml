@@ -47,7 +47,7 @@
     </param>
     <param>
         <index>5</index>
-        <name>x6</name>
+        <name>x5</name>
         <value>1.5</value>
         <type>double</type>
         <gap>0.0000001</gap>
@@ -55,7 +55,25 @@
         <max_value>4</max_value>
     </param>
     <param>
+        <index>6</index>
+        <name>x6</name>
+        <value>1.5</value>
+        <type>double</type>
+        <gap>0.0000001</gap>
+        <min_value>1</min_value>
+        <max_value>4</max_value>
+    </param>
+        <param>
         <index>7</index>
+        <name>x7</name>
+        <value>1.5</value>
+        <type>double</type>
+        <gap>0.0000001</gap>
+        <min_value>1</min_value>
+        <max_value>4</max_value>
+    </param>
+        <param>
+        <index>8</index>
         <name>x8</name>
         <value>1.5</value>
         <type>double</type>
