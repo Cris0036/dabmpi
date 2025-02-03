@@ -953,8 +953,7 @@ class SolverDAB (SolverBase):
                                    " -- old " + str(self.__bestSolution.getValue()) + ". Bee " + str(beeIdx))
 
                     self.__bestSolution = newSolution
-                    elapsed_time = time.time() - u.starttime
-                    self.best_global_solutions.append((elapsed_time, solutionValue))
+
                     
                     if ((u.objective == u.objectiveType.MAXIMIZE and float(solutionValue) > float(self.__bestGlobalSolution.getValue())) or
                         (u.objective == u.objectiveType.MINIMIZE and float(solutionValue) < float(self.__bestGlobalSolution.getValue()))):
