@@ -370,7 +370,7 @@ class SolutionsQueue (object):
                          "/" + str(total_val) + "/" + str(temp_sum))
         return None, None, None
 
-    def PutSolutionPlot(self, value, elapsedTime, sources=3):
+    def PutSolutionPlot(self, value, elapsedTime):
         if value is None:
             util.logger.warning("QUEUE. Evaluation is None. " +
                                 str(self.__filename))
