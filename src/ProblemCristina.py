@@ -74,7 +74,7 @@ class ProblemCristina(object):
         self.z = (self.der_theta_grad * self.b_r - self.der_r * self.b_theta) / self.modulo3
 
         self.modulo_final = sqrt(self.x**2 + self.y**2 + self.z**2)
-        print("modulo_final terminado")
+
         
         # Multiplicamos el jacobiano (= r*(Ro + r*cos(theta))) por el modulo final y nos sale el integrando,
         # tendríamos una integral doble con variables de integracion dtheta y dphi.
@@ -87,16 +87,13 @@ class ProblemCristina(object):
         
         # Siguiendo lo anterior, el integrando final se nos quedaría:
         self.integrando = self.modulo_final * (self.Ro + self.r * cos(self.theta))
-        print("ok")
-        # self.integrando_func = lambdify((self.theta, self.r, self.q), self.integrando, modules={'numpy': np})
-        # print("ok2")
         self.aux = 2 * np.pi * self.Ro
-        print("init bien terminado")
+   
         
         
     def solve(self, solution):
         params = solution.getParametersValues()
-        print(params)
+       
         # Verificar que el número de parámetros sea igual al número de dimensiones
         if len(params) != self.n_dimensions:
             raise ValueError(f"Expected {self.n_dimensions} parameters, but got {len(params)}")
