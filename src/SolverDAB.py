@@ -497,6 +497,8 @@ class SolverDAB (SolverBase):
             self.__pendingSolutions = None
             self.__finishedSolutions = None
             self.__topSolutions = None
+            self.__all_best_global = solQueue.SolutionsQueue(
+                                    "allBestCristina.queue", u.solution_type.CRISTINA, infile, True)
 
             if problem_type == u.problem_type.FUSION:
                 self.__finishedSolutions = solQueue.SolutionsQueue(
@@ -526,6 +528,7 @@ class SolverDAB (SolverBase):
                 if self.__topSolutions.qSize() != 0:
                     self.__bestSolution, value, origin = self.__topSolutions.GetSolutionTuple(False)
                     self.__bestSolution.setValue(value)
+                    self.__all_best_global.PutSolutionPlot(value, 0)
 
             except Exception as e:
                 u.logger.warning("SolverDAB. " + str(e) + ". line " + str(sys.exc_info()[2].tb_lineno))
@@ -801,7 +804,10 @@ class SolverDAB (SolverBase):
 
                     if ((u.objective == u.objectiveType.MAXIMIZE and float(solVal[0]) > float(self.__bestSolution.getValue())) or
                         (u.objective == u.objectiveType.MINIMIZE and float(solVal[0]) < float(self.__bestSolution.getValue()))):
-    
+                        
+                        elapsedTime = time.time() - u.starttime        
+                        self.__all_best_global.PutSolutionPlot(solVal[0], elapsedTime)
+                        
                         isNewBest = True
                         u.logger.log(u.extraLog, "New best solution found. Value " + str(solVal[0]) +
                                        " -- old " + str(self.__bestSolution.getValue()) + ". Bee " + str(beeIdx[0]))
@@ -987,6 +993,8 @@ class SolverDAB (SolverBase):
                         (u.objective == u.objectiveType.MINIMIZE and
                         float(solutionValue) < float(self.__bestSolution.getValue()))):
 
+                        elapsedTime = time.time() - u.starttime
+                        self.__all_best_global.PutSolutionPlot(solutionValue, elapsedTime)
 
                         u.logger.log(u.extraLog, "New best solution found. Value " + str(newSolution) +
                                        " -- old " + str(self.__bestSolution.getValue()) + ". Bee " + str(beeIdx))
