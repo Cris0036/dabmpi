@@ -189,7 +189,7 @@ class BeeBase ():
             start, stop = stop, start
         if start==stop:
             return start
-        return random.randint(0, int(abs((stop - start) / step))) * step + start
+        return round(random.randint(0, int(abs((stop - start) / step))) * step + start, int(-round(np.log10(step))))
 """
 Employed bees
 """
