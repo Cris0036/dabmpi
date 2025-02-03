@@ -370,14 +370,14 @@ class SolutionsQueue (object):
                          "/" + str(total_val) + "/" + str(temp_sum))
         return None, None, None
 
-    def PutSolutionPlot(self, solution, value, j, sources=3):
-        if solution is None:
-            util.logger.warning("QUEUE. Solution is None. " +
+    def PutSolutionPlot(self, value, elapsedTime, sources=3):
+        if value is None:
+            util.logger.warning("QUEUE. Evaluation is None. " +
                                 str(self.__filename))
             return
             
         try:
-            sol_tuple = value, j
+            sol_tuple = value, elapsedTime
             self.__queue.append(sol_tuple)
         except Exception as e:
             util.logger.error("QUEUE (" + str(sys.exc_info()[2].tb_lineno) +
@@ -386,7 +386,7 @@ class SolutionsQueue (object):
             return
         try:
             with open(self.__filename, 'a') as f:
-                f.write(str(value) + "#" + str(j) + '\n')
+                f.write(str(value) + "#" + str(elapsedTime) + '\n')
         except Exception as e:
             util.logger.error("QUEUE (" + str(sys.exc_info()[2].tb_lineno) +
                             "). " + str(e))
