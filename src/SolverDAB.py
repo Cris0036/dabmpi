@@ -456,7 +456,6 @@ class SolverDAB (SolverBase):
             SolverBase.__init__(self, problem_type, infile, configfile)
             self.__bestSolution = None
             self.__bestGlobalSolution = None
-            self.__all_best_global_solutions = []
 
             if self.__problem_type == u.problem_type.FUSION:
                 self.__problem = ProblemFusion()
@@ -529,7 +528,7 @@ class SolverDAB (SolverBase):
                 if self.__topSolutions.qSize() != 0:
                     self.__bestSolution, value, origin = self.__topSolutions.GetSolutionTuple(False)
                     self.__bestSolution.setValue(value)
-                    self.__all_best_global_solutions.append((0, value))
+
             except Exception as e:
                 u.logger.warning("SolverDAB. " + str(e) + ". line " + str(sys.exc_info()[2].tb_lineno))
 
@@ -804,9 +803,7 @@ class SolverDAB (SolverBase):
 
                     if ((u.objective == u.objectiveType.MAXIMIZE and float(solVal[0]) > float(self.__bestSolution.getValue())) or
                         (u.objective == u.objectiveType.MINIMIZE and float(solVal[0]) < float(self.__bestSolution.getValue()))):
-                        elapsedTime = time.time() - u.starttime
-                        self.__all_best_global_solutions.append((elapsedTime, solVal[0]))
-                        
+    
                         isNewBest = True
                         u.logger.log(u.extraLog, "New best solution found. Value " + str(solVal[0]) +
                                        " -- old " + str(self.__bestSolution.getValue()) + ". Bee " + str(beeIdx[0]))
@@ -914,56 +911,7 @@ class SolverDAB (SolverBase):
                                    str(sys.exc_info()[2].tb_lineno))
         else:
             self.runDistributed()
-        #self.create_save_plots()
 
-
-
-    def create_save_plots(self):
-        current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M")
-        directory_name = f"graficas/{current_time}"
-
-        try:
-            os.makedirs(directory_name, exist_ok=True)
-        except:
-            print(f"Error al crear la carpeta {directory_name}: {e}")
-            return
-
-        x = []
-        y = []
-        aux_list = self.__finishedSolutions.getAllSolutions()
-        for i in range(len(aux_list)):
-            aux_list2 = aux_list[i][0].split(',')
-            aux_list2 = [float(par.split(':')[1]) for par in aux_list2]
-            x.append(aux_list2[0])
-            y.append(aux_list2[1])
-
-        plt.scatter(x, y, marker='o', color='black')
-        plt.title("Evolucion de los resultados")
-        plt.xlabel("Primer parametro")
-        plt.ylabel("Segundo parametro")
-    
-        file_path = f"{directory_name}/dispersion.png"
-        plt.savefig(file_path)
-        plt.close()
-        
-        
-        x = []
-        y = []
-        for elapsedTime, solutionValue in  self.__all_best_global_solutions:
-            x.append(elapsedTime)
-            y.append(solutionValue)
-
-       
-        plt.plot(x, y, marker='o', color='blue')  # Línea con puntos marcados
-        plt.title("Evolución de la Mejor Solución")
-        plt.xlabel("Tiempo (segundos)")
-        plt.ylabel("Valor funcion objetivo")
-    
-        file_path = f"{directory_name}/grafica_fo.png"
-        plt.savefig(file_path)
-        plt.close()
-        
-        
 
     def runDistributed(self):
         if (self.__problem_type == u.problem_type.FUSION):
@@ -994,9 +942,6 @@ class SolverDAB (SolverBase):
                 self.__totalSumGoodSolutions = self.__topSolutions.GetTotalSolutionsValues()
                 if ((u.objective == u.objectiveType.MAXIMIZE and float(solutionValue) > float(self.__bestSolution.getValue())) or
                     (u.objective == u.objectiveType.MINIMIZE and float(solutionValue) < float(self.__bestSolution.getValue()))):
-                    
-                    elapsedTime = time.time() - u.starttime
-                    self.__all_best_global_solutions.append((elapsedTime, solutionValue))
                     
                     u.logger.log(u.extraLog, "New best solution found. Value " + str(newSolution) +
                                    " -- old " + str(self.__bestSolution.getValue()) + ". Bee " + str(beeIdx))
@@ -1043,8 +988,7 @@ class SolverDAB (SolverBase):
                         float(solutionValue) > float(self.__bestSolution.getValue())) or
                         (u.objective == u.objectiveType.MINIMIZE and
                         float(solutionValue) < float(self.__bestSolution.getValue()))):
-                        elapsedTime = time.time() - u.starttime
-                        self.__all_best_global_solutions.append((elapsedTime, solutionValue))
+
 
                         u.logger.log(u.extraLog, "New best solution found. Value " + str(newSolution) +
                                        " -- old " + str(self.__bestSolution.getValue()) + ". Bee " + str(beeIdx))
