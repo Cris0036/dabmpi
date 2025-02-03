@@ -36,7 +36,7 @@ import mpmath
 mpmath.mp.dps = 16  
 
 class ProblemCristina(object):
-    def __init__(self, n_dimensions=1):
+    def __init__(self, n_dimensions=16):
         self.n_dimensions = n_dimensions
         self.r_values = [
             0.11764705882352941, 0.23529411764705882, 0.3529411764705882, 0.47058823529411764, 0.5882352941176471,
