@@ -19,13 +19,11 @@
 
 from mpi4py import MPI
 import sys
-import os
 import random
 import shutil
 import time
 import datetime
 from array import array
-import matplotlib.pyplot as plt
 from SolverBase import SolverBase
 from ProblemCristina import ProblemCristina
 from ProblemFusion import ProblemFusion
