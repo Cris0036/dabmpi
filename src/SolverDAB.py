@@ -946,6 +946,8 @@ class SolverDAB (SolverBase):
                 self.__totalSumGoodSolutions = self.__topSolutions.GetTotalSolutionsValues()
                 if ((u.objective == u.objectiveType.MAXIMIZE and float(solutionValue) > float(self.__bestSolution.getValue())) or
                     (u.objective == u.objectiveType.MINIMIZE and float(solutionValue) < float(self.__bestSolution.getValue()))):
+                    elapsedTime = time.time() - u.starttime        
+                    self.__all_best_global.PutSolutionPlot(solVal[0], elapsedTime)
                     
                     u.logger.log(u.extraLog, "New best solution found. Value " + str(newSolution) +
                                    " -- old " + str(self.__bestSolution.getValue()) + ". Bee " + str(beeIdx))
