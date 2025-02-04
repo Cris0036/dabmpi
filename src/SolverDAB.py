@@ -497,8 +497,7 @@ class SolverDAB (SolverBase):
             self.__pendingSolutions = None
             self.__finishedSolutions = None
             self.__topSolutions = None
-            self.__all_best_global = solQueue.SolutionsQueue(
-                                    "allBestCristina.queue", u.solution_type.CRISTINA, infile, True)
+            self.__all_best_global = None
 
             if problem_type == u.problem_type.FUSION:
                 self.__finishedSolutions = solQueue.SolutionsQueue(
@@ -507,6 +506,8 @@ class SolverDAB (SolverBase):
                                     "pending.queue", u.solution_type.FUSION, infile, False)
                 self.__topSolutions = solQueue.SolutionsQueue(
                                     "top.queue", u.solution_type.FUSION, infile, False, True)
+                self.__all_best_global = solQueue.SolutionsQueue(
+                                    "allBestCristina.queue", u.solution_type.FUSION, infile, True)
             elif problem_type == u.problem_type.CRISTINA:
                 self.__finishedSolutions = solQueue.SolutionsQueue(
                                     "finishedCristinaSep.queue", u.solution_type.CRISTINA, infile, True, True)
@@ -514,6 +515,8 @@ class SolverDAB (SolverBase):
                                     "pendingCristina.queue", u.solution_type.CRISTINA, infile, False)
                 self.__topSolutions = solQueue.SolutionsQueue(
                                     "top.queue", u.solution_type.CRISTINA, infile, False, True)
+                self.__all_best_global = solQueue.SolutionsQueue(
+                                    "allBestCristina.queue", u.solution_type.CRISTINA, infile, True)
             elif problem_type == u.problem_type.NONSEPARABLE:
                 self.__finishedSolutions = solQueue.SolutionsQueue(
                                     "finishedNonSep.queue", u.solution_type.NONSEPARABLE, infile, True, True)
@@ -521,6 +524,8 @@ class SolverDAB (SolverBase):
                                     "pendingNonSep.queue", u.solution_type.NONSEPARABLE, infile, False)
                 self.__topSolutions = solQueue.SolutionsQueue(
                                     "top.queue", u.solution_type.NONSEPARABLE, infile, False, True)
+                self.__all_best_global = solQueue.SolutionsQueue(
+                                    "allBestCristina.queue", u.solution_type.NONSEPARABLE, infile, True)
             else:
                 raise Exception("Unkown problem type")
             #if top solutions is not empty, that means we have a best solution from the previous execution
