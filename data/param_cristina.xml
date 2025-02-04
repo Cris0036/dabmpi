@@ -3,7 +3,7 @@
     <param>
         <index>0</index>
         <name>x0</name>
-        <value>1.5</value>
+        <value>1.38417</value>
         <type>double</type>
         <gap>0.0000001</gap>
         <min_value>1</min_value>
@@ -12,7 +12,7 @@
     <param>
         <index>1</index>
         <name>x1</name>
-        <value>1.5</value>
+        <value>3.559192</value>
         <type>double</type>
         <gap>0.0000001</gap>
         <min_value>1</min_value>
@@ -21,7 +21,7 @@
         <param>
         <index>2</index>
         <name>x2</name>
-        <value>1.5</value>
+        <value>2.672777</value>
         <type>double</type>
         <gap>0.0000001</gap>
         <min_value>1</min_value>
@@ -30,7 +30,7 @@
     <param>
         <index>3</index>
         <name>x3</name>
-        <value>1.5</value>
+        <value>2.1097679</value>
         <type>double</type>
         <gap>0.0000001</gap>
         <min_value>1</min_value>
@@ -39,7 +39,7 @@
     <param>
         <index>4</index>
         <name>x4</name>
-        <value>1.5</value>
+        <value>1.1434722</value>
         <type>double</type>
         <gap>0.0000001</gap>
         <min_value>1</min_value>
@@ -48,7 +48,7 @@
     <param>
         <index>5</index>
         <name>x5</name>
-        <value>1.5</value>
+        <value>2.6896417</value>
         <type>double</type>
         <gap>0.0000001</gap>
         <min_value>1</min_value>
@@ -57,7 +57,7 @@
     <param>
         <index>6</index>
         <name>x6</name>
-        <value>1.5</value>
+        <value>2.5560874</value>
         <type>double</type>
         <gap>0.0000001</gap>
         <min_value>1</min_value>
@@ -66,7 +66,7 @@
         <param>
         <index>7</index>
         <name>x7</name>
-        <value>1.5</value>
+        <value>2.3422662</value>
         <type>double</type>
         <gap>0.0000001</gap>
         <min_value>1</min_value>
@@ -75,7 +75,7 @@
         <param>
         <index>8</index>
         <name>x8</name>
-        <value>1.5</value>
+        <value>3.7819238</value>
         <type>double</type>
         <gap>0.0000001</gap>
         <min_value>1</min_value>
@@ -84,7 +84,7 @@
     <param>
         <index>9</index>
         <name>x9</name>
-        <value>1.5</value>
+        <value>2.2598016</value>
         <type>double</type>
         <gap>0.0000001</gap>
         <min_value>1</min_value>
@@ -93,7 +93,7 @@
     <param>
         <index>10</index>
         <name>x10</name>
-        <value>1.5</value>
+        <value>2.222159</value>
         <type>double</type>
         <gap>0.0000001</gap>
         <min_value>1</min_value>
@@ -102,7 +102,7 @@
     <param>
         <index>11</index>
         <name>x11</name>
-        <value>1.5</value>
+        <value>2.3327771</value>
         <type>double</type>
         <gap>0.0000001</gap>
         <min_value>1</min_value>
@@ -111,7 +111,7 @@
     <param>
         <index>12</index>
         <name>x12</name>
-        <value>1.5</value>
+        <value>1.7299898</value>
         <type>double</type>
         <gap>0.0000001</gap>
         <min_value>1</min_value>
@@ -120,7 +120,7 @@
     <param>
         <index>13</index>
         <name>x13</name>
-        <value>1.5</value>
+        <value>3.10807</value>
         <type>double</type>
         <gap>0.0000001</gap>
         <min_value>1</min_value>
@@ -129,7 +129,7 @@
     <param>
         <index>14</index>
         <name>x14</name>
-        <value>1.5</value>
+        <value>1.9115405</value>
         <type>double</type>
         <gap>0.0000001</gap>
         <min_value>1</min_value>
@@ -139,6 +139,150 @@
         <index>15</index>
         <name>x15</name>
         <value>1.5</value>
+        <type>double</type>
+        <gap>0.0000001</gap>
+        <min_value>1</min_value>
+        <max_value>4</max_value>
+    </param>
+    <param>
+        <index>16</index>
+        <name>x16</name>
+        <value>2.7664209</value>
+        <type>double</type>
+        <gap>0.0000001</gap>
+        <min_value>1</min_value>
+        <max_value>4</max_value>
+    </param>
+    <param>
+        <index>17</index>
+        <name>x17</name>
+        <value>1.4304785</value>
+        <type>double</type>
+        <gap>0.0000001</gap>
+        <min_value>1</min_value>
+        <max_value>4</max_value>
+    </param>
+    <param>
+        <index>18</index>
+        <name>x18</name>
+        <value>2.1504233</value>
+        <type>double</type>
+        <gap>0.0000001</gap>
+        <min_value>1</min_value>
+        <max_value>4</max_value>
+    </param>
+    <param>
+        <index>19</index>
+        <name>x19</name>
+        <value>1.7046878</value>
+        <type>double</type>
+        <gap>0.0000001</gap>
+        <min_value>1</min_value>
+        <max_value>4</max_value>
+    </param>
+    <param>
+        <index>20</index>
+        <name>x20</name>
+        <value>3.4144236</value>
+        <type>double</type>
+        <gap>0.0000001</gap>
+        <min_value>1</min_value>
+        <max_value>4</max_value>
+    </param>
+    <param>
+        <index>21</index>
+        <name>x21</name>
+        <value>1.0578089</value>
+        <type>double</type>
+        <gap>0.0000001</gap>
+        <min_value>1</min_value>
+        <max_value>4</max_value>
+    </param>
+    <param>
+        <index>22</index>
+        <name>x22</name>
+        <value>3.9483872</value>
+        <type>double</type>
+        <gap>0.0000001</gap>
+        <min_value>1</min_value>
+        <max_value>4</max_value>
+    </param>
+    <param>
+        <index>23</index>
+        <name>x23</name>
+        <value>3.9887589</value>
+        <type>double</type>
+        <gap>0.0000001</gap>
+        <min_value>1</min_value>
+        <max_value>4</max_value>
+    </param>
+    <param>
+        <index>24</index>
+        <name>x24</name>
+        <value>1.5079893</value>
+        <type>double</type>
+        <gap>0.0000001</gap>
+        <min_value>1</min_value>
+        <max_value>4</max_value>
+    </param>
+    <param>
+        <index>25</index>
+        <name>x25</name>
+        <value>2.5901499</value>
+        <type>double</type>
+        <gap>0.0000001</gap>
+        <min_value>1</min_value>
+        <max_value>4</max_value>
+    </param>
+    <param>
+        <index>26</index>
+        <name>x26</name>
+        <value>1.4331689</value>
+        <type>double</type>
+        <gap>0.0000001</gap>
+        <min_value>1</min_value>
+        <max_value>4</max_value>
+    </param>
+    <param>
+        <index>27</index>
+        <name>x27</name>
+        <value>1.1664907</value>
+        <type>double</type>
+        <gap>0.0000001</gap>
+        <min_value>1</min_value>
+        <max_value>4</max_value>
+    </param>
+    <param>
+        <index>28</index>
+        <name>x28</name>
+        <value>2.535948</value>
+        <type>double</type>
+        <gap>0.0000001</gap>
+        <min_value>1</min_value>
+        <max_value>4</max_value>
+    </param>
+    <param>
+        <index>29</index>
+        <name>x29</name>
+        <value>2.4323229</value>
+        <type>double</type>
+        <gap>0.0000001</gap>
+        <min_value>1</min_value>
+        <max_value>4</max_value>
+    </param>
+    <param>
+        <index>30</index>
+        <name>x30</name>
+        <value>3.0712316</value>
+        <type>double</type>
+        <gap>0.0000001</gap>
+        <min_value>1</min_value>
+        <max_value>4</max_value>
+    </param>
+    <param>
+        <index>31</index>
+        <name>x31</name>
+        <value>3.5514437</value>
         <type>double</type>
         <gap>0.0000001</gap>
         <min_value>1</min_value>
