@@ -265,8 +265,8 @@ class Employed (BeeBase):
                     newVal = None
                     if ptype in ['double', 'float']:
                         currentVal = parameters[i].get_value()
-                        minVal = currentVal - 10.0 * abs(parameters[i].get_gap())
-                        maxVal = currentVal + 10.0 * abs(parameters[i].get_gap())
+                        minVal = currentVal - 20.0 * abs(parameters[i].get_gap())
+                        maxVal = currentVal + 20.0 * abs(parameters[i].get_gap())
                         minVal = max(parameters[i].get_min_value(), minVal)
                         maxVal = min(parameters[i].get_max_value(), maxVal)
                         if minVal == maxVal:
