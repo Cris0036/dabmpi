@@ -190,6 +190,18 @@ class BeeBase ():
         if start==stop:
             return start
         return round(random.randint(0, int(abs((stop - start) / step))) * step + start, int(-round(u.np.log10(step))))
+    
+    def checkisNew(self, solution):
+        for s in self.__pendingSolutions().getAllSolutionsValue():
+            if s== solution:
+                isNew = False
+                return False
+        for s in self.__finishedSolutions().getAllSolutionsValue():
+            if s == solution:
+                isNew = False
+                return False
+        return True
+
 """
 Employed bees
 """
