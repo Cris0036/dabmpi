@@ -199,12 +199,12 @@ class BeeBase ():
             return start
         return round(random.randint(0, int(abs((stop - start) / step))) * step + start, int(-round(u.np.log10(step))))
     
-    def checkisNew(self, solution):
-        for s in self.__solver.__pendingSolutions.getAllSolutionsValue():
+    def checkisNew(self, solution, pendingSolutions, finishedSolutions):
+        for s in pendingSolutions.getAllSolutionsValue():
             if s== solution:
                 isNew = False
                 return False
-        for s in self.__solver.__finishedSolutions.getAllSolutionsValue():
+        for s in finishedSolutions.getAllSolutionsValue():
             if s == solution:
                 isNew = False
                 return False
