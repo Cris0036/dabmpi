@@ -33,7 +33,7 @@ from sympy import symbols, cos, sin, sqrt, lambdify, Interval, re, pi, S
 import numpy as np
 import mpmath
 
-# Establecemos la precisión de la integral a 16 decimales
+# Establecemos la precision de la integral a 16 decimales
 mpmath.mp.dps = 16  
 
 
@@ -91,15 +91,15 @@ class ProblemCristina(object):
 
         
         # Multiplicamos el jacobiano (= r*(Ro + r*cos(theta))) por el modulo final y nos sale el integrando,
-        # tendríamos una integral doble con variables de integracion dtheta y dphi.
+        # tendriamos una integral doble con variables de integracion dtheta y dphi.
         # Al no depender el integrando de phi, se nos quedaría 2pi * (integral de 0 a 2pi
         # con el mismo integrando y dependiente de theta).
 
-        # Podemos simplificar todavía más, puesto que el resultado anterior hay que
+        # Podemos simplificar todavia mas, puesto que el resultado anterior hay que
         # dividirlo por el area del toroide (= 4*Ro*r*pi^2), se nos queda entonces:
         # (1/(2*Ro*pi))* (integral de 0 a 2pi de modulo_final*(Ro + r*cos(theta)) dtheta)
         
-        # Siguiendo lo anterior, el integrando final se nos quedaría:
+        # Siguiendo lo anterior, el integrando final se nos quedaria:
         self.integrando = self.modulo_final * (self.Ro + self.r * cos(self.theta))
         self.aux = 2 * np.pi * self.Ro
    
@@ -108,7 +108,7 @@ class ProblemCristina(object):
     def solve(self, solution):
         params = solution.getParametersValues()
        
-        # Verificar que el número de parámetros sea igual al número de dimensiones
+        # Verificar que el numero de parametros sea igual al numero de dimensiones
         if len(params) != self.n_dimensions:
             raise ValueError(f"Expected {self.n_dimensions} parameters, but got {len(params)}")
             
