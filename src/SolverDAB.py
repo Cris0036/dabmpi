@@ -130,34 +130,42 @@ class BeeBase ():
         solution = self.getBestLocalSolution()
         params = solution.getParameters()
         u.logger.debug('number of parameters: ' + str(len(params)))
-        for i in range(len(params)):
-            ptype = params[i].get_type()
-            newVal = None
-            if ptype in ['double', 'float']:
-                minVal = params[i].get_min_value()
-                maxVal = params[i].get_max_value()
-                if minVal == maxVal:
-                    newVal = minVal
-                else:
-                    if minVal > maxVal:
-                        minVal, maxVal = maxVal, minVal
-                    if params[i].get_gap() == 0.0:
-                        newVal = random.uniform(minVal, maxVal)
+        isNew = False
+        while not isNew:
+            aux = []
+            for i in range(len(params)):
+                ptype = params[i].get_type()
+                newVal = None
+                if ptype in ['double', 'float']:
+                    minVal = params[i].get_min_value()
+                    maxVal = params[i].get_max_value()
+                    if minVal == maxVal:
+                        newVal = minVal
                     else:
-                        newVal = self.randrange_float(minVal, maxVal, params[i].get_gap())
-            elif ptype == "bool":
-                val = random.randint(0, 1)
-                newVal = val == 0
-            else:
-                minVal = params[i].get_min_value()
-                maxVal = params[i].get_max_value()
-                if minVal == maxVal:
-                    newVal = minVal
+                        if minVal > maxVal:
+                            minVal, maxVal = maxVal, minVal
+                        if params[i].get_gap() == 0.0:
+                            newVal = random.uniform(minVal, maxVal)
+                        else:
+                            newVal = self.randrange_float(minVal, maxVal, params[i].get_gap())
+                elif ptype == "bool":
+                    val = random.randint(0, 1)
+                    newVal = val == 0
                 else:
-                    if minVal > maxVal:
-                        minVal, maxVal = maxVal, minVal
-                    newVal = random.randint(minVal, maxVal)
-            params[i].set_value(newVal)
+                    minVal = params[i].get_min_value()
+                    maxVal = params[i].get_max_value()
+                    if minVal == maxVal:
+                        newVal = minVal
+                    else:
+                        if minVal > maxVal:
+                            minVal, maxVal = maxVal, minVal
+                        newVal = random.randint(minVal, maxVal)
+                params[i].set_value(newVal)
+                aux.append(newVal)
+            if self.checkisNew(aux):
+                isNew = True
+            else:
+                isNew = False
         solution.setParameters(params)
         solution.print()
         return solution
@@ -192,11 +200,11 @@ class BeeBase ():
         return round(random.randint(0, int(abs((stop - start) / step))) * step + start, int(-round(u.np.log10(step))))
     
     def checkisNew(self, solution):
-        for s in self.__pendingSolutions().getAllSolutionsValue():
+        for s in self.__solver.__pendingSolutions.getAllSolutionsValue():
             if s== solution:
                 isNew = False
                 return False
-        for s in self.__finishedSolutions().getAllSolutionsValue():
+        for s in self.__solver.__finishedSolutions.getAllSolutionsValue():
             if s == solution:
                 isNew = False
                 return False
@@ -268,6 +276,7 @@ class Employed (BeeBase):
                     return solution, -1
             isNew = False
             while not isNew:
+                aux =[]
                 parameters = solution.getParameters()
                 for i in range(len(parameters)):
                     val = random.randint(0, self.__probEmployedChange)
@@ -311,10 +320,11 @@ class Employed (BeeBase):
                             newVal = random.uniform((minVal), (maxVal))
 
                     currentVal = parameters[i].get_value()
+                    aux.append(newVal)
                     if newVal != currentVal:
                         isNew = True
                         parameters[i].set_value(newVal)
-                if not self.checkisNew():
+                if not self.checkisNew(aux):
                     isNew = False
                 solution.setParameters(parameters)
                 parameters = solution.getParameters()
@@ -377,6 +387,7 @@ class Onlooker (BeeBase):
         isNew = False
         try:
             while not isNew:
+                aux =[]
                 for p in solution.getParameters():
                     val = random.randint(0, self.__probOnlookerChange)
                     if val != 0:
@@ -427,8 +438,8 @@ class Onlooker (BeeBase):
                     #Here: go through the parameters of the solution and change those
                     #parameters considering the min and max values of each parameter,
                     #the probMatrix, and the self.__modFactor value
-            
-                if not self.checkisNew():
+                    aux.append(newVal)
+                if not self.checkisNew(aux):
                     isNew = False
             #except Exception, e:
             #    u.logger.error("SolverDAB " + str(sys.exc_traceback.tb_lineno)+ " " +str(e))
