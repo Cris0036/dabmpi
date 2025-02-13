@@ -37,7 +37,7 @@ import mpmath
 mpmath.mp.dps = 16  
 
 
-def read_config_from_xml(filename= '../data/param_config_magfield'):
+def read_config_from_xml(filename= '../data/param_config_magfield.xml'):
     tree = ET.parse(filename)
     root = tree.getroot()
 
@@ -54,7 +54,7 @@ def read_config_from_xml(filename= '../data/param_config_magfield'):
 
 
 class ProblemCristina(object):
-    def __init__(self, n_dimensions=32, config_file="config.xml"):
+    def __init__(self, n_dimensions=32, config_file='../data/param_config_magfield.xml'):
         self.n_dimensions = n_dimensions
 
         # Leer los valores desde el archivo XML
