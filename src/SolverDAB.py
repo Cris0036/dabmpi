@@ -266,7 +266,7 @@ class Employed (BeeBase):
             u.logger.info('create new candidate employed')
 
             if not self.bestLocalInitialised():
-                solution = self.createRandomSolution()
+                solution = self.createRandomSolution(pendingSolutions, finishedSolutions)
                 return solution, -1
 
             solution = self.getBestLocalSolution()
@@ -357,7 +357,7 @@ class Scout (BeeBase):
         solution = None
         try:
             u.logger.info('create new candidate scout')
-            solution = self.createRandomSolution()
+            solution = self.createRandomSolution( pendingSolutions, finishedSolutions)
         except Exception as e:
             u.logger.error("SolverDAB " + str(sys.exc_info()[2].tb_lineno) + " " + str(e))
             raise
