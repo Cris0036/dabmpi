@@ -391,3 +391,12 @@ class SolutionsQueue (object):
             util.logger.error("QUEUE (" + str(sys.exc_info()[2].tb_lineno) +
                             "). " + str(e))
 
+
+    def getAllSolutionsValue(self):
+        lista = []
+        for s in self.__queue:
+            s = s[0].split('#')[0].split(',')
+            valores = [float(par.split(':')[1]) for par in s if ':' in par]
+            lista.append(valores)
+        return ñista
+        
