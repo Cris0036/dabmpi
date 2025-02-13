@@ -398,5 +398,5 @@ class SolutionsQueue (object):
             s = s[0].split('#')[0].split(',')
             valores = [float(par.split(':')[1]) for par in s if ':' in par]
             lista.append(valores)
-        return ñista
+        return lista
         
