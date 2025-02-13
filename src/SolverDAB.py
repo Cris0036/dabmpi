@@ -125,7 +125,7 @@ class BeeBase ():
     value for each parameter considering the min and max values of that
     parameter
     """
-    def createRandomSolution(self):
+    def createRandomSolution(self,pendingSolutions, finishedSolutions):
         u.logger.info('create new candidate scout')
         solution = self.getBestLocalSolution()
         params = solution.getParameters()
@@ -162,7 +162,7 @@ class BeeBase ():
                         newVal = random.randint(minVal, maxVal)
                 params[i].set_value(newVal)
                 aux.append(newVal)
-            if self.checkisNew(aux):
+            if self.checkisNew(aux,pendingSolutions, finishedSolutions):
                 isNew = True
             else:
                 isNew = False
@@ -259,7 +259,7 @@ class Employed (BeeBase):
             u.logger.error("SolverDAB (" + str(sys.exc_info()[2].tb_lineno) + "). " + str(e))
         return solutionCopy
 
-    def createNewCandidate(self, probMatrix, totalSumGoodSolutions, topSolutions=None):
+    def createNewCandidate(self, probMatrix, totalSumGoodSolutions, pendingSolutions, finishedSolutions, topSolutions=None):
         solution = None
         try:
         #this is the one that has to use the probMatrix
@@ -324,7 +324,7 @@ class Employed (BeeBase):
                     if newVal != currentVal:
                         isNew = True
                         parameters[i].set_value(newVal)
-                if not self.checkisNew(aux):
+                if not self.checkisNew(aux,pendingSolutions, finishedSolutions):
                     isNew = False
                 solution.setParameters(parameters)
                 parameters = solution.getParameters()
@@ -353,7 +353,7 @@ class Scout (BeeBase):
     value for each parameter considering the min and max values of that
     parameter
     """
-    def createNewCandidate(self, probMatrix, topSolutions=None):
+    def createNewCandidate(self, probMatrix, pendingSolutions, finishedSolutions,topSolutions=None):
         solution = None
         try:
             u.logger.info('create new candidate scout')
@@ -374,7 +374,7 @@ class Onlooker (BeeBase):
         self.__probOnlookerChange = probChange
         return
 
-    def createNewCandidate(self, probMatrix, totalSumGoodSolutions, topSolutions):
+    def createNewCandidate(self, probMatrix, totalSumGoodSolutions, topSolutions,pendingSolutions, finishedSolutions):
         u.logger.info('create new candidate onlooker')
         val = random.uniform(0.0, totalSumGoodSolutions)
         solutionTuple = topSolutions.GetTupleOnPriorityByValue(val)
@@ -439,7 +439,7 @@ class Onlooker (BeeBase):
                     #parameters considering the min and max values of each parameter,
                     #the probMatrix, and the self.__modFactor value
                     aux.append(newVal)
-                if not self.checkisNew(aux):
+                if not self.checkisNew(aux,pendingSolutions, finishedSolutions):
                     isNew = False
             #except Exception, e:
             #    u.logger.error("SolverDAB " + str(sys.exc_traceback.tb_lineno)+ " " +str(e))
@@ -650,11 +650,11 @@ class SolverDAB (SolverBase):
                 except:
                     pass
                 """
-                Create only one scout. The scout creates a random solution, so
+                 only one scout. The scout s a random solution, so
                 it is just called when needed
                 """
                 self.__scout = Scout(problem_type, infile)
-                u.logger.debug("Created 1 scout bee")
+                u.logger.debug("d 1 scout bee")
         except Exception as e:
             u.logger.error("SolverDAB " + str(sys.exc_info()[2].tb_lineno) + " " + str(e))
 
@@ -678,7 +678,7 @@ class SolverDAB (SolverBase):
 
                 while (self.__pendingSolutions.qSize() < self.__pendingSize):
                     self.__pendingSolutions.PutSolution(
-                                    self.__scout.createNewCandidate(self.__probMatrix)[0], -1.0, -1)
+                                    self.__scout.createNewCandidate(self.__probMatrix, self.__pendingSolutions, self.__finishedSolutions)[0], -1.0, -1)
             u.logger.debug('created initial set of solutions')
         except Exception as e:
             u.logger.error("SolverDAB " + str(sys.exc_info()[2].tb_lineno) + " " + str(e))
@@ -694,11 +694,11 @@ class SolverDAB (SolverBase):
                 for bee in range(len(self.__bees)):
                     u.logger.debug("Bee " + str(bee) + " putting solution on pending queue")
                     newSolution, beeIdx = self.__bees[bee].createNewCandidate(
-                            self.__probMatrix, self.__totalSumGoodSolutions, self.__topSolutions)
+                            self.__probMatrix, self.__totalSumGoodSolutions, self.__topSolutions,self.__pendingSolutions, self.__finishedSolutions)
                     if bee < self.__nEmployed:
                         beeIdx = bee
                     if newSolution is None:
-                        newSolution = self.__scout.createNewCandidate(self.__probMatrix)[0]
+                        newSolution = self.__scout.createNewCandidate(self.__probMatrix, self.__pendingSolutions, self.__finishedSolutions)[0]
                         self.__pendingSolutions.PutSolution(newSolution, -1.0, -1)
                     else:
                         self.__pendingSolutions.PutSolution(newSolution, -1.0, beeIdx)
@@ -707,7 +707,7 @@ class SolverDAB (SolverBase):
                 for bee in range(self.__nEmployed):
                     if self.__bees[bee].getIter() > self.__iterAbandoned:
                         u.logger.info("Bee " + str(bee) + ". Abandoning food source")
-                        solution = self.__scout.createNewCandidate(self.__probMatrix)[0]
+                        solution = self.__scout.createNewCandidate(self.__probMatrix,self.__pendingSolutions, self.__finishedSolutions)[0]
                         self.__bees[bee].setIter(0)
                         self.__bees[bee].setSolution(solution)
                         u.logger.debug("Scout bee putting solution on pending queue")
@@ -739,7 +739,7 @@ class SolverDAB (SolverBase):
                     while len(solTuple) < 3:
                         solTuple = self.__pendingSolutions.GetSolutionList()
                         if (self.__pendingSolutions.qSize() < 1):
-                            self.__pendingSolutions.PutSolution(self.__scout.createNewCandidate(self.__probMatrix)[0], -1.0, -1)
+                            self.__pendingSolutions.PutSolution(self.__scout.createNewCandidate(self.__probMatrix,self.__pendingSolutions, self.__finishedSolutions)[0], -1.0, -1)
 
                     beeIdx = array('i', [0]) * 1
                     buff = array('f', [0]) * self.__numParams
@@ -966,11 +966,11 @@ class SolverDAB (SolverBase):
             for bee in range(len(self.__bees)):
                 u.logger.debug("Bee " + str(bee) + " putting solution on pending queue")
                 newSolution, beeIdx = self.__bees[bee].createNewCandidate(
-                        self.__probMatrix, self.__totalSumGoodSolutions, self.__topSolutions)
+                        self.__probMatrix, self.__totalSumGoodSolutions, self.__topSolutions,self.__pendingSolutions, self.__finishedSolutions)
                 if bee < self.__nEmployed:
                     beeIdx = bee
                 if newSolution is None:
-                    newSolution = self.__scout.createNewCandidate(self.__probMatrix)[0]
+                    newSolution = self.__scout.createNewCandidate(self.__probMatrix,self.__pendingSolutions, self.__finishedSolutions)[0]
                 self.__problem.solve(newSolution)
                 solutionValue = float(newSolution.getValue())
 
@@ -1013,7 +1013,7 @@ class SolverDAB (SolverBase):
             for bee in range(self.__nEmployed):
                 if (self.__bees[bee].getIter() > self.__iterAbandoned):
                     u.logger.info("Bee " + str(bee) + ". Abandoning food source")
-                    newSolution = self.__scout.createNewCandidate(self.__probMatrix)[0]
+                    newSolution = self.__scout.createNewCandidate(self.__probMatrix,self.__pendingSolutions, self.__finishedSolutions)[0]
                     self.__bees[bee].setIter(0)
                     self.__bees[bee].setSolution(newSolution)
                     self.__problem.solve(newSolution)
