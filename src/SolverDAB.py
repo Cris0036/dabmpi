@@ -314,6 +314,8 @@ class Employed (BeeBase):
                     if newVal != currentVal:
                         isNew = True
                         parameters[i].set_value(newVal)
+                if not self.checkisNew():
+                    isNew = False
                 solution.setParameters(parameters)
                 parameters = solution.getParameters()
                     #Here: go through the parameters of the solution and change those
@@ -425,6 +427,9 @@ class Onlooker (BeeBase):
                     #Here: go through the parameters of the solution and change those
                     #parameters considering the min and max values of each parameter,
                     #the probMatrix, and the self.__modFactor value
+            
+                if not self.checkisNew():
+                    isNew = False
             #except Exception, e:
             #    u.logger.error("SolverDAB " + str(sys.exc_traceback.tb_lineno)+ " " +str(e))
             u.logger.debug("Onlooker. Selected a solution from the list of finished solutions")
