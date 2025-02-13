@@ -28,33 +28,44 @@ HISTORY
     Version 1.0 (15-01-2014):   Fist stable version.
 """
 
-from sympy import symbols, cos, sin, sqrt, lambdify, singularities, Interval, re, pi, S
+import xml.etree.ElementTree as ET
+from sympy import symbols, cos, sin, sqrt, lambdify, Interval, re, pi, S
 import numpy as np
 import mpmath
 
-# Establecemos la precision de la integral a 16 decimales
+# Establecemos la precisión de la integral a 16 decimales
 mpmath.mp.dps = 16  
 
-class ProblemCristina(object):
-    def __init__(self, n_dimensions=32):
-        self.n_dimensions = n_dimensions
-        self.r_values = [
-            0.06060606, 0.12121212, 0.18181818, 0.24242424, 0.3030303 ,
-            0.36363636, 0.42424242, 0.48484848, 0.54545455, 0.60606061,
-            0.66666667, 0.72727273, 0.78787879, 0.84848485, 0.90909091,
-            0.96969697, 1.03030303, 1.09090909, 1.15151515, 1.21212121,
-            1.27272727, 1.33333333, 1.39393939, 1.45454545, 1.51515152,
-            1.57575758, 1.63636364, 1.6969697 , 1.75757576, 1.81818182,
-            1.87878788, 1.93939394
-        ]
 
-        self.r, self.theta, self.q = symbols('r theta q')
-        
-        # Configuracion del ITER para el campo magnetico
-        self.a = 2.0
-        self.beta = 1.8
-        self.Bo = 5.3
-        self.Ro = 6.2
+def read_config_from_xml(filename= '../data/param_config_magfield'):
+    tree = ET.parse(filename)
+    root = tree.getroot()
+
+    params = root.find("parameters")
+    r_values = [float(r.text) for r in root.find("r_values")]
+
+    return {
+        "a": float(params.find("a").text),
+        "beta": float(params.find("beta").text),
+        "Bo": float(params.find("Bo").text),
+        "Ro": float(params.find("Ro").text),
+        "r_values": r_values,
+    }
+
+
+class ProblemCristina(object):
+    def __init__(self, n_dimensions=32, config_file="config.xml"):
+        self.n_dimensions = n_dimensions
+
+        # Leer los valores desde el archivo XML
+        config = read_config_from_xml(config_file)
+        self.a = config["a"]
+        self.beta = config["beta"]
+        self.Bo = config["Bo"]
+        self.Ro = config["Ro"]
+        self.r_values = config["r_values"]
+
+        self.r, self.theta, self.q = symbols("r theta q")
 
         # Campo magnetico B = (Br, Btheta, Bphi)
         self.b_r = -self.Bo * self.beta * self.q * (((self.r**2) / (self.a**2)) - 1) * sin(self.theta) / 2
